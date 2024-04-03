@@ -13,17 +13,17 @@
     </header>
     <main>
         <p class="instruction">For each provided script snippet, please use the following recording fields or upload files.</p>
+        <p>
+            <label for="audioSource">Audio input source: </label>
+            <select id="audioSource"></select>
+        </p>
         
-        <!-- First recording field -->
-        <div class="recorder">
-            <button class="btnStartStop">START RECORDING</button>
-            <div class="recordingDuration"></div>
-            <audio controls></audio>
-        </div>
+        <script src="static/initRecorders.js"></script> 
 
-        <!-- Second recording field -->
         <div class="recorder">
-            <button class="btnStartStop">START RECORDING</button>
+            <div class="script"></div>
+            <button class="btnStart">Start</button>
+            <button class="btnStop">Stop</button>
             <div class="recordingDuration"></div>
             <audio controls></audio>
         </div>

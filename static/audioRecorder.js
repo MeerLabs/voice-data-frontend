@@ -3,7 +3,8 @@ class AudioRecorder {
         this.container = container;
         this.audio = container.querySelector('audio');
         this.recordingDurationDisplay = container.querySelector('.recordingDuration');
-        this.startStopButton = container.querySelector('.btnStartStop');
+        this.startButton = container.querySelector('.btnStart');
+        this.stopButton = container.querySelector('.btnStop');
         this.mediaRecorder = null;
         this.chunks = [];
         this.startTime = null;
@@ -12,56 +13,56 @@ class AudioRecorder {
         this.init();
     }
 
-    init() {
+    async init() {
         let constraintObj = { 
             audio: true, 
             video: false
         };
-
-        navigator.mediaDevices.getUserMedia(constraintObj)
+        
+        const mediaStream = navigator.mediaDevices.getUserMedia(constraintObj)
         .then((mediaStreamObj) => {
             this.mediaRecorder = new MediaRecorder(mediaStreamObj);
 
-            this.startStopButton.addEventListener('click', () => {
-                if (this.mediaRecorder.state === 'inactive') {
+            this.startButton.addEventListener('click', () => {                
                     this.startRecording();
-                } else {
+                });
+            this.stopButton.addEventListener('click', () => {                
                     this.stopRecording();
-                }
-            });
+                });
+            })
+        .then(() => this.gotStream())
+        
+        };
 
-            this.mediaRecorder.ondataavailable = (ev) => {
-                this.chunks.push(ev.data);
-            };
-
-            this.mediaRecorder.onstop = () => {
-                let blob = new Blob(this.chunks, { 'type' : 'audio/mp3;' });
-                let audioURL = window.URL.createObjectURL(blob);
-                this.audio.src = audioURL;
-                //show audio
-                container.insertBefore(audioElm, recordedAudioContainer.firstElementChild);
-                container.classList.add('d-flex');
-                container.classList.remove('d-none');
-                this.chunks = [];
-            };
-        })
-        .catch((err) => { 
-            console.log(err.name, err.message); 
-        });
-    }
-
+    gotStream() {
+       
+        this.mediaRecorder.ondataavailable = (ev) => {
+            this.chunks.push(ev.data);
+        
+            if (this.mediaRecorder.state == "inactive"){
+            let blob = new Blob(this.chunks,{type:'audio/x-mpeg-3'});
+            let audioURL = window.URL.createObjectURL(blob);
+            this.audio.src = audioURL;
+            this.audio.controls=true;
+            this.chunks = [];
+            }
+        }}
+        
+          
     startRecording() {
+        this.startButton.disabled = true;
+        this.stopButton.disabled = false;
         this.chunks = [];
         this.startTime = Date.now();
         this.timerId = setInterval(() => this.updateRecordingDuration(), 1000);
         this.mediaRecorder.start();
-        this.startStopButton.textContent = 'STOP RECORDING';
-    }
+    };
 
     stopRecording() {
+        this.startButton.disabled = false;
+        this.stopButton.disabled = true;
         clearInterval(this.timerId);
         this.mediaRecorder.stop();
-        this.startStopButton.textContent = 'START RECORDING';
     }
 
     updateRecordingDuration() {
