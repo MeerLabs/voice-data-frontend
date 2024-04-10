@@ -5,6 +5,7 @@ class AudioRecorder {
         this.recordingDurationDisplay = container.querySelector('.recordingDuration');
         this.startButton = container.querySelector('.btnStart');
         this.stopButton = container.querySelector('.btnStop');
+        this.submitButton = container.querySelector('.btnSubmit');
         this.mediaRecorder = null;
         this.chunks = [];
         this.startTime = null;
@@ -28,6 +29,10 @@ class AudioRecorder {
                 });
             this.stopButton.addEventListener('click', () => {                
                     this.stopRecording();
+                });
+            this.submitButton.addEventListener('click', () => {                
+                    //this.stopRecording();
+                    console.log("Submit!")
                 });
             })
         .then(() => this.gotStream())
@@ -76,8 +81,3 @@ class AudioRecorder {
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    const recorders = document.querySelectorAll('.recorder');
-    recorders.forEach((recorder) => new AudioRecorder(recorder));
-});

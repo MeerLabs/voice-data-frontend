@@ -24,8 +24,8 @@ function populateAudioSources() {
 
 // Call the function to populate the audio input sources dropdown
 populateAudioSources();
+/*
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("here")
     // Fetch the JSON data
     fetch('static/script.json')
         .then(response => response.json())
@@ -36,9 +36,8 @@ document.addEventListener('DOMContentLoaded', () => {
             scriptDiv.textContent = section.content;
             })
 })
+*/
 
-
-/*
 document.addEventListener('DOMContentLoaded', () => {
     // Fetch the JSON data
     fetch('static/script.json')
@@ -69,6 +68,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 stopButton.classList.add('btnStop');
                 stopButton.textContent = 'Stop';
 
+                const submitButton = document.createElement('button');
+                submitButton.classList.add('btnSubmit');
+                submitButton.textContent = 'Submit';
+
                 const recordingDurationDiv = document.createElement('div');
                 recordingDurationDiv.classList.add('recordingDuration');
 
@@ -81,9 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 recorderDiv.appendChild(stopButton);
                 recorderDiv.appendChild(recordingDurationDiv);
                 recorderDiv.appendChild(audioElement);
+                recorderDiv.appendChild(submitButton);
 
                 // Append recorder div to container
                 recorderContainer.appendChild(recorderDiv);
+                new AudioRecorder(recorderDiv);
                 counter += 1;
             });
         })
@@ -91,4 +96,3 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching JSON data:', error);
         });
 });
-*/
