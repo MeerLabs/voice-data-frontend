@@ -10,6 +10,7 @@ class AudioRecorder {
         this.chunks = [];
         this.startTime = null;
         this.timerId = null;
+        this.Blob = null;
 
         this.init();
     }
@@ -22,7 +23,7 @@ class AudioRecorder {
         
         const mediaStream = navigator.mediaDevices.getUserMedia(constraintObj)
         .then((mediaStreamObj) => {
-            this.mediaRecorder = new MediaRecorder(mediaStreamObj);
+            this.mediaRecorder = new MediaRecorder(mediaStreamObj, {type: 'audio/webm'});
 
             this.startButton.addEventListener('click', () => {                
                     this.startRecording();
@@ -30,34 +31,28 @@ class AudioRecorder {
             this.stopButton.addEventListener('click', () => {                
                     this.stopRecording();
                 });
-            this.submitButton.addEventListener('click', () => {                
-                    fetch('/upload_audio', {
-                        method: 'POST'
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            console.log('Python script executed successfully!');
-                        } else {
-                            throw new Error('Failed to execute Python script.');
-                        }
-                    })
+            this.submitButton.addEventListener('click', () => {          
+                if (this.Blob) {
+                    console.log('calling python script');
+                    this.uploadAudio(this.Blob);
+                } else {
+                    alert('No recorded audio available.');
+                }
                 });
             })
         .then(() => this.gotStream())
-        
         };
 
-    gotStream() {
-       
+    gotStream() {       
         this.mediaRecorder.ondataavailable = (ev) => {
             this.chunks.push(ev.data);
         
             if (this.mediaRecorder.state == "inactive"){
-            let blob = new Blob(this.chunks,{type:'audio/x-mpeg-3'});
-            let audioURL = window.URL.createObjectURL(blob);
-            this.audio.src = audioURL;
-            this.audio.controls=true;
-            this.chunks = [];
+                this.Blob = new Blob(this.chunks,{type: 'audio/webm'});
+                let audioURL = window.URL.createObjectURL(this.Blob);
+                this.audio.src = audioURL;
+                this.audio.controls=true;   
+                //this.chunks = [];
             }
         }}
         
@@ -87,5 +82,25 @@ class AudioRecorder {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = seconds % 60;
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    }
+
+    uploadAudio(blob) {
+        // Perform upload logic here (e.g., using fetch)
+        const formData = new FormData();
+        // change file name here!
+        formData.append('audioFile', blob, 'audio.webm'); 
+
+        fetch('/upload_audio', {
+            method: 'POST',
+            body: formData
+            })
+        .then(response => {
+            if (response.ok) {
+                alert('Audio uploaded successfully!');
+            } 
+        })
+        .catch(error => {
+            console.error('Error uploading audio:', error);
+        });
     }
 }
