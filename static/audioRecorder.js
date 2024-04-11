@@ -31,8 +31,16 @@ class AudioRecorder {
                     this.stopRecording();
                 });
             this.submitButton.addEventListener('click', () => {                
-                    //this.stopRecording();
-                    console.log("Submit!")
+                    fetch('/upload_audio', {
+                        method: 'POST'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Python script executed successfully!');
+                        } else {
+                            throw new Error('Failed to execute Python script.');
+                        }
+                    })
                 });
             })
         .then(() => this.gotStream())
