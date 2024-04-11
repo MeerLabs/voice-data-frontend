@@ -23,7 +23,7 @@ class AudioRecorder {
         
         const mediaStream = navigator.mediaDevices.getUserMedia(constraintObj)
         .then((mediaStreamObj) => {
-            this.mediaRecorder = new MediaRecorder(mediaStreamObj, {type: 'audio/webm'});
+            this.mediaRecorder = new MediaRecorder(mediaStreamObj);//, {type: 'audio/webm'});
 
             this.startButton.addEventListener('click', () => {                
                     this.startRecording();
@@ -52,7 +52,7 @@ class AudioRecorder {
                 let audioURL = window.URL.createObjectURL(this.Blob);
                 this.audio.src = audioURL;
                 this.audio.controls=true;   
-                //this.chunks = [];
+                this.chunks = [];
             }
         }}
         
