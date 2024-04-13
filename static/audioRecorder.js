@@ -48,11 +48,11 @@ class AudioRecorder {
             this.chunks.push(ev.data);
         
             if (this.mediaRecorder.state == "inactive"){
-                this.Blob = new Blob(this.chunks,{type: 'audio/webm'});
-                let audioURL = window.URL.createObjectURL(this.Blob);
-                this.audio.src = audioURL;
-                this.audio.controls=true;   
+                this.Blob = new Blob(this.chunks, { type: "audio/ogg; codecs=opus" });
                 this.chunks = [];
+                const audioURL = window.URL.createObjectURL(this.Blob);
+                this.audio.src = audioURL;
+                //this.audio.controls=true;   
             }
         }}
         
@@ -88,7 +88,7 @@ class AudioRecorder {
         // Perform upload logic here (e.g., using fetch)
         const formData = new FormData();
         // change file name here!
-        formData.append('audioFile', blob, 'audio.webm'); 
+        formData.append('audioFile', blob, 'audio.opus'); 
 
         fetch('/upload_audio', {
             method: 'POST',

@@ -14,7 +14,7 @@ def upload_file_to_azure(fpath):
     timestamp_str = current_time.strftime("%Y-%m-%d_%H-%M-%S")
 
     # Initialize the ShareFileClient with the provided connection string and file path
-    service_client = ShareFileClient.from_connection_string(conn_str, share_name=share_name, file_path=f'{timestamp_str}.webm')
+    service_client = ShareFileClient.from_connection_string(conn_str, share_name=share_name, file_path=f'{timestamp_str}.opus')
 
     # Upload the local file to the Azure File Share
     with open(fpath, "rb") as file:

@@ -19,7 +19,7 @@ def upload_audio():
     #app.logger.info('Received audio data')
     try:
         audio_file  = request.files['audioFile']
-        path = os.path.join(temp_dir, 'tmp.webm')
+        path = os.path.join(temp_dir, 'tmp.opus')
        
         audio_file.save(path)
 
