@@ -31,12 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Update page display text
         pageDisplay.textContent = `Page ${page} of ${totalPages}`;
-        console.log('tried to load next page')
     }
 
     function addRecorders() {
         // Fetch the JSON data
-        console.log('tried to add recorders')
         fetch('static/script.json')
             .then(response => response.json())
             .then(data => {

@@ -38,7 +38,6 @@ class AudioRecorder {
             });
             this.submitButton.addEventListener('click', () => {          
                 if (this.Blob) {
-                    console.log('calling python script');
                     this.uploadAudio(this.Blob);
                 } else {
                     alert('No recorded audio available.');
@@ -63,14 +62,31 @@ class AudioRecorder {
         this.stopButton.disabled = true;
         clearInterval(this.timerId);
         this.mediaRecorder.stop();
-
+    
         // Handle Blob creation and audio playback
         this.mediaRecorder.onstop = () => {
-            this.Blob = new Blob(this.chunks)//, { type: "audio/ogg; codecs=opus" });
+            this.Blob = new Blob(this.chunks);
             const audioURL = window.URL.createObjectURL(this.Blob);
-            this.audio.src = audioURL;
+    
+            // Create a new <audio> element
+            const newAudioElement = document.createElement('audio');
+            newAudioElement.controls = true;
+            newAudioElement.src = audioURL;
+    
+            // Replace the existing <audio> element with the new one
+            const existingAudioElement = this.container.querySelector('audio');
+            if (existingAudioElement) {
+                existingAudioElement.replaceWith(newAudioElement);
+            }
+    
+            // Update the reference to the audio element
+            this.audio = newAudioElement;
         };
+    
+        // Clear chunks array after processing
+        this.chunks = [];
     }
+    
 
     updateRecordingDuration() {
         const elapsedTime = Math.floor((Date.now() - this.startTime) / 1000);
@@ -85,6 +101,9 @@ class AudioRecorder {
 
     uploadAudio(blob) {
         // Perform upload logic here (e.g., using fetch)
+        // Assuming submitButton is your reference to the submit button element
+        this.submitButton.style.backgroundColor = '#444';
+
         const formData = new FormData();
         formData.append('audioFile', blob, 'audio.opus'); 
         let reporter = document.getElementById('modelName').value;
@@ -101,5 +120,6 @@ class AudioRecorder {
         .catch(error => {
             console.error('Error uploading audio:', error);
         });
+        this.submitButton.style.backgroundColor = '';
     }
 }
