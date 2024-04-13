@@ -68,24 +68,14 @@ class AudioRecorder {
             this.Blob = new Blob(this.chunks);
             const audioURL = window.URL.createObjectURL(this.Blob);
     
-            // Create a new <audio> element
-            const newAudioElement = document.createElement('audio');
-            newAudioElement.controls = true;
-            newAudioElement.src = audioURL;
+            // Update the existing <audio> element's src attribute
+            this.audio.src = audioURL;
+            this.audio.controls = true; // Ensure controls are enabled
     
-            // Replace the existing <audio> element with the new one
-            const existingAudioElement = this.container.querySelector('audio');
-            if (existingAudioElement) {
-                existingAudioElement.replaceWith(newAudioElement);
-            }
-    
-            // Update the reference to the audio element
-            this.audio = newAudioElement;
+            // Clear chunks array after processing
+            this.chunks = [];
         };
-    
-        // Clear chunks array after processing
-        this.chunks = [];
-    }
+    }    
     
 
     updateRecordingDuration() {
@@ -102,7 +92,7 @@ class AudioRecorder {
     uploadAudio(blob) {
         // Perform upload logic here (e.g., using fetch)
         // Assuming submitButton is your reference to the submit button element
-        this.submitButton.style.backgroundColor = '#444';
+        this.submitButton.disabled = true;
 
         const formData = new FormData();
         formData.append('audioFile', blob, 'audio.opus'); 
@@ -120,6 +110,6 @@ class AudioRecorder {
         .catch(error => {
             console.error('Error uploading audio:', error);
         });
-        this.submitButton.style.backgroundColor = '';
+        this.submitButton.disabled = false;
     }
 }
