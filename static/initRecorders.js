@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Create elements
                 const recorderDiv = document.createElement('div');
                 recorderDiv.classList.add('recorder');
+                recorderDiv.id = counter;
 
                 const scriptDiv = document.createElement('div');
                 scriptDiv.classList.add('script');
@@ -62,15 +63,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const startButton = document.createElement('button');
                 startButton.classList.add('btnStart');
-                startButton.textContent = 'Start';
+                startButton.textContent = '開始';
 
                 const stopButton = document.createElement('button');
                 stopButton.classList.add('btnStop');
-                stopButton.textContent = 'Stop';
+                stopButton.textContent = '停止';
 
                 const submitButton = document.createElement('button');
                 submitButton.classList.add('btnSubmit');
-                submitButton.textContent = 'Submit';
+                submitButton.textContent = '送出';
 
                 const recordingDurationDiv = document.createElement('div');
                 recordingDurationDiv.classList.add('recordingDuration');

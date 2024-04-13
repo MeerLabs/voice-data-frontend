@@ -18,6 +18,16 @@ main {
     padding: 0 20px;
 }
 
+label {
+    display: block; /* Ensures each label is on a new line */
+    /* Adjust the bottom margin as needed */
+}
+
+input {
+
+    margin-bottom: 10px; 
+}
+
 .instruction {
     margin-bottom: 20px;
 }

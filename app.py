@@ -16,15 +16,16 @@ def home():
 
 @app.route("/upload_audio", methods=["POST"])
 def upload_audio():
-    #app.logger.info('Received audio data')
+    app.logger.info('Received audio data')
     try:
         audio_file  = request.files['audioFile']
+        name = request.form['name']
         path = os.path.join(temp_dir, 'tmp.opus')
        
         audio_file.save(path)
 
         script_path = 'backend/shareServiceClient.py'
-        subprocess.run([sys.executable, script_path, path])
+        subprocess.run([sys.executable, script_path, path, name])
 
         return "Script executed successfully", 200
         

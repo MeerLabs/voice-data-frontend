@@ -1,6 +1,7 @@
 class AudioRecorder {
     constructor(container) {
         this.container = container;
+        this.id = container.id;
         this.audio = container.querySelector('audio');
         this.recordingDurationDisplay = container.querySelector('.recordingDuration');
         this.startButton = container.querySelector('.btnStart');
@@ -16,21 +17,25 @@ class AudioRecorder {
     }
 
     async init() {
-        let constraintObj = { 
-            audio: true, 
-            video: false
-        };
-        
-        const mediaStream = navigator.mediaDevices.getUserMedia(constraintObj)
-        .then((mediaStreamObj) => {
-            this.mediaRecorder = new MediaRecorder(mediaStreamObj);//, {type: 'audio/webm'});
+        try {
+            let constraintObj = { 
+                audio: true, 
+                video: false
+            };
+            
+            const mediaStream = await navigator.mediaDevices.getUserMedia(constraintObj);
+            this.mediaRecorder = new MediaRecorder(mediaStream);
+
+            this.mediaRecorder.ondataavailable = (e) => {
+                this.chunks.push(e.data);
+              };
 
             this.startButton.addEventListener('click', () => {                
-                    this.startRecording();
-                });
+                this.startRecording();
+            });
             this.stopButton.addEventListener('click', () => {                
-                    this.stopRecording();
-                });
+                this.stopRecording();
+            });
             this.submitButton.addEventListener('click', () => {          
                 if (this.Blob) {
                     console.log('calling python script');
@@ -38,25 +43,12 @@ class AudioRecorder {
                 } else {
                     alert('No recorded audio available.');
                 }
-                });
-            })
-        .then(() => this.gotStream())
-        };
+            });
+        } catch (error) {
+            console.error('Error accessing microphone:', error);
+        }
+    }       
 
-    gotStream() {       
-        this.mediaRecorder.ondataavailable = (ev) => {
-            this.chunks.push(ev.data);
-        
-            if (this.mediaRecorder.state == "inactive"){
-                this.Blob = new Blob(this.chunks, { type: "audio/ogg; codecs=opus" });
-                this.chunks = [];
-                const audioURL = window.URL.createObjectURL(this.Blob);
-                this.audio.src = audioURL;
-                //this.audio.controls=true;   
-            }
-        }}
-        
-          
     startRecording() {
         this.startButton.disabled = true;
         this.stopButton.disabled = false;
@@ -64,13 +56,20 @@ class AudioRecorder {
         this.startTime = Date.now();
         this.timerId = setInterval(() => this.updateRecordingDuration(), 1000);
         this.mediaRecorder.start();
-    };
+    }
 
     stopRecording() {
         this.startButton.disabled = false;
         this.stopButton.disabled = true;
         clearInterval(this.timerId);
         this.mediaRecorder.stop();
+
+        // Handle Blob creation and audio playback
+        this.mediaRecorder.onstop = () => {
+            this.Blob = new Blob(this.chunks, { type: "audio/ogg; codecs=opus" });
+            const audioURL = window.URL.createObjectURL(this.Blob);
+            this.audio.src = audioURL;
+        };
     }
 
     updateRecordingDuration() {
@@ -87,9 +86,9 @@ class AudioRecorder {
     uploadAudio(blob) {
         // Perform upload logic here (e.g., using fetch)
         const formData = new FormData();
-        // change file name here!
         formData.append('audioFile', blob, 'audio.opus'); 
-
+        let reporter = document.getElementById('modelName').value;
+        formData.append('name', reporter+'-'+this.id); 
         fetch('/upload_audio', {
             method: 'POST',
             body: formData
