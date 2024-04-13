@@ -66,7 +66,7 @@ class AudioRecorder {
 
         // Handle Blob creation and audio playback
         this.mediaRecorder.onstop = () => {
-            this.Blob = new Blob(this.chunks, { type: "audio/ogg; codecs=opus" });
+            this.Blob = new Blob(this.chunks)//, { type: "audio/ogg; codecs=opus" });
             const audioURL = window.URL.createObjectURL(this.Blob);
             this.audio.src = audioURL;
         };
@@ -95,7 +95,7 @@ class AudioRecorder {
             })
         .then(response => {
             if (response.ok) {
-                alert('Audio uploaded successfully!');
+                alert('成功: Audio uploaded successfully!');
             } 
         })
         .catch(error => {

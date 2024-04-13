@@ -22,8 +22,18 @@
         <input type="text" id="modelName">
 
         <script src="static/initRecorders.js"></script> 
-        <div id="recorderContainer"></div>        
+        <div id="recorderContainer"></div>       
+        
+        <!-- Pagination container for the button and page display -->
+        <div class="pagination-container">
+            <button id="changeContentButton">下一頁</button>
+            <p id="pageDisplay">Page 1 of 2</p> <!-- Display current page / total pages -->
+        </div>
+
+        <!-- JavaScript script for handling the button click -->
+        <script src="static/loadPage.js"></script> 
+
+
     </main>    
-    
 </body>
 </html>
