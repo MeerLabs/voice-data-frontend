@@ -71,6 +71,7 @@ class AudioRecorder {
             // Update the existing <audio> element's src attribute
             this.audio.src = audioURL;
             this.audio.controls = true; // Ensure controls are enabled
+            this.audio.load();
     
             // Clear chunks array after processing
             this.chunks = [];
@@ -110,6 +111,7 @@ class AudioRecorder {
         .catch(error => {
             console.error('Error uploading audio:', error);
         });
+        // add wait time?
         this.submitButton.disabled = false;
     }
 }
