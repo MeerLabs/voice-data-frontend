@@ -14,7 +14,7 @@ def upload_file_to_azure(fpath, fname):
     timestamp_str = current_time.strftime("%Y-%m-%d_%H-%M-%S")
 
     # Initialize the ShareFileClient with the provided connection string and file path
-    service_client = ShareFileClient.from_connection_string(conn_str, share_name=share_name, file_path=f'{fname}-{timestamp_str}.wav')
+    service_client = ShareFileClient.from_connection_string(conn_str, share_name=share_name, file_path=f'{fname}_{timestamp_str}.wav')
 
     # Upload the local file to the Azure File Share
     with open(fpath, "rb") as file:

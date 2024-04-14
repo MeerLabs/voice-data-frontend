@@ -44,11 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (currentPage === 1) {
                     counter = 0; // For page 1, counter starts from 0
                 } else if (currentPage === 2) {
-                    counter = 10; // For page 2, counter starts from 10
+                    counter = 15; // For page 2, counter starts from 10
                 }
         
                 // Loop through sections based on counter value
-                for (let i = counter; i < counter + 10; i++) {
+                for (let i = counter; i < counter + 15; i++) {
                     if (i >= sections.length) {
                         break; // Break loop if sections are exhausted
                     }
