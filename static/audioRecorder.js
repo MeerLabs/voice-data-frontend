@@ -20,7 +20,6 @@ class AudioRecorder {
         try {
             let constraintObj = { 
                 audio: true, 
-                video: false
             };
             
             const mediaStream = await navigator.mediaDevices.getUserMedia(constraintObj);
@@ -66,11 +65,12 @@ class AudioRecorder {
         // Handle Blob creation and audio playback
         this.mediaRecorder.onstop = () => {
             this.Blob = new Blob(this.chunks);
+
             const audioURL = window.URL.createObjectURL(this.Blob);
     
             // Update the existing <audio> element's src attribute
             this.audio.src = audioURL;
-            this.audio.controls = true; // Ensure controls are enabled
+            this.audio.controls = true;
             this.audio.load();
     
             // Clear chunks array after processing
@@ -96,7 +96,7 @@ class AudioRecorder {
         this.submitButton.disabled = true;
 
         const formData = new FormData();
-        formData.append('audioFile', blob, 'audio.opus'); 
+        formData.append('audioFile', blob, 'audio.wav'); 
         let reporter = document.getElementById('modelName').value;
         formData.append('name', reporter+'-'+this.id); 
         fetch('/upload_audio', {
@@ -110,8 +110,9 @@ class AudioRecorder {
         })
         .catch(error => {
             console.error('Error uploading audio:', error);
+        })
+        .finally(() => {
+            this.submitButton.disabled = false;
         });
-        // add wait time?
-        this.submitButton.disabled = false;
     }
 }

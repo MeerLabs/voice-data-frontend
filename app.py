@@ -20,7 +20,7 @@ def upload_audio():
     try:
         audio_file  = request.files['audioFile']
         name = request.form['name']
-        path = os.path.join(temp_dir, 'tmp.opus')
+        path = os.path.join(temp_dir, 'tmp.wav')
        
         audio_file.save(path)
 
