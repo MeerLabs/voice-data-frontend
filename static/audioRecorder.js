@@ -64,7 +64,7 @@ class AudioRecorder {
     
         // Handle Blob creation and audio playback
         this.mediaRecorder.onstop = () => {
-            this.Blob = new Blob(this.chunks);
+            this.Blob = new Blob(this.chunks, { 'type' : 'audio/wav' });
 
             const audioURL = window.URL.createObjectURL(this.Blob);
     
