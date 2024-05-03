@@ -14,6 +14,10 @@ app.logger.addHandler(handler)
 def home():
     return render_template("index.html", ind=1)
 
+@app.route("/en")
+def home_en():
+    return render_template("index_en.html", ind=2)
+
 @app.route("/upload_audio", methods=["POST"])
 def upload_audio():
     app.logger.info('Received audio data')

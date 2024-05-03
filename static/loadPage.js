@@ -2,13 +2,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const recorderContainer = document.getElementById('recorderContainer');
     const changeContentButton = document.getElementById('changeContentButton');
     const pageDisplay = document.getElementById('pageDisplay');
+
+    // Get the value of the lang parameter from the URL
+    // Get the value of the 'ind' data attribute from the script tag
+    const scriptTag = document.querySelector('script[src*="loadPage.js"]');
+    const lang = scriptTag.getAttribute('data-ind');
     
     let currentPage = 1;
     const totalPages = 2; // Total number of pages
 
     // Initial content for page 1
     displayPageContent(currentPage);
-    addRecorders()
+    addRecorders(lang)
 
     // Event listener for button click
     changeContentButton.addEventListener('click', function() {
@@ -20,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             changeContentButton.textContent = '下一頁';
         }
         displayPageContent(currentPage);
-        addRecorders()
+        addRecorders(lang)
     });
     
 
@@ -33,9 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
         pageDisplay.textContent = `Page ${page} of ${totalPages}`;
     }
 
-    function addRecorders() {
+    function addRecorders(lang) {
         // Fetch the JSON data
-        fetch('static/script.json')
+        let fetchUrl = lang === '2' ? 'static/script_en.json' : 'static/script.json';
+        fetch(fetchUrl)
             .then(response => response.json())
             .then(data => {
                 // Get the sections from the JSON data

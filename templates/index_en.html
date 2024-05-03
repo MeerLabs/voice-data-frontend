@@ -13,20 +13,20 @@
     </header>
     <main>
         <p class="instruction">
-            请使用以下工具为每个提供的短句录制您的声音，並确保填写稱呼以便后端记录收集音頻。
-            提交的录音将在请求时用于声音克隆。为了获得最佳效果，请确保最小的背景噪音和阅读清晰度。
+            Please use the following tools to record your voice for each provided sentence, and make sure to fill in your name so that the backend can collect the audio recordings.
+            The submitted recordings will be used for voice cloning once requested. For best results, please ensure minimum background noise and reading clarity.
         </p>
         <p class="warning">
-            在iOS设备上，可能会出现界面问题导致播放功能失效。
-            尽管提交录音仍然是可能的，尝试重新录制可能会导致错误。
-            如果您希望在iOS设备上重新录制，请在继续之前刷新页面并重新输入您的姓名。
+            On iOS devices, there are interface issues that may cause playback to malfunction.
+            While submitting recordings remains possible, attempting to re-record may result in an error.
+            If you wish to re-record on iOS devices, kindly refresh the page and input your name again before proceeding.
         </p>
         <p>
             <label for="audioSource">Audio input source: </label>
             <select id="audioSource"></select>
         </p>
         
-        <label for="textInput">主播稱呼:</label>
+        <label for="textInput">Reporter Name:</label>
         <input type="text" id="modelName">
 
         <script src="static/initRecorders.js"></script> 
@@ -34,14 +34,12 @@
         
         <!-- Pagination container for the button and page display -->
         <div class="pagination-container">
-            <button id="changeContentButton">下一頁</button>
+            <button id="changeContentButton">Next Page</button>
             <p id="pageDisplay">Page 1 of 2</p> <!-- Display current page / total pages -->
         </div>
 
         <!-- JavaScript script for handling the button click -->
-        <script src="static/loadPage.js"></script> 
-
-
+        <script src="{{ url_for('static', filename='loadPage.js') }}" data-ind="{{ ind }}"></script>
     </main>    
 </body>
 </html>

@@ -27,13 +27,15 @@ input {
 
     margin-bottom: 10px; 
 }
-
-
 .instruction {
     font-size: 18px;
     margin-bottom: 20px;
 }
-
+.warning {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #ff0000; 
+}
 .recorder {
     background-color: #fff;
     padding: 20px;
