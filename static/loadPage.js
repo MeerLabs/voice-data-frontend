@@ -93,6 +93,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
                     const audioElement = document.createElement('audio');
                     audioElement.controls = true;
+
+                    if (lang === '2') {
+                        startButton.textContent = 'Start';
+                        stopButton.textContent = 'Stop';
+                        submitButton.textContent = 'Submit';
+                    } 
         
                     // Append elements to recorder div
                     recorderDiv.appendChild(indexDisplay);
