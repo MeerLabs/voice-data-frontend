@@ -28,11 +28,11 @@ input {
     margin-bottom: 10px; 
 }
 .instruction {
-    font-size: 18px;
+    font-size: 17px;
     margin-bottom: 20px;
 }
 .warning {
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 20px;
     color: #ff0000; 
 }
@@ -79,3 +79,20 @@ audio {
     color: #333; /* Example: Set text color to dark gray */
     margin-bottom: 6px; /* Example: Add bottom margin for spacing */
 }
+
+.lang-button {
+    float: right;
+    color: #fff;
+    margin-right: 15px; 
+    margin-top: 15px; 
+}
+
+.lang-container {
+    background-color: #333;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.lang-button:hover {
+        background-color: #0056b3;
+    }
