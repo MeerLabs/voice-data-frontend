@@ -21,7 +21,7 @@
 
 ## Overview
 
-This article aims to provide a comprehensive guide to the GPT-SoVITS repository developed by RVC-Boss. It offers detailed installation instructions, advice on dataset collection and training, and commands for running the system on Linux. Additionally, it also delves into the technical principles behind GPT-SoVITS, attempting to explain underlying technologies employed in this open-source project. 
+This article aims to provide a comprehensive guide to the GPT-SoVITS repository developed by RVC-Boss. It offers detailed installation instructions, advice on dataset collection and training, and commands for running the system on Linux. Additionally, it also delves into the technical principles behind GPT-SoVITS, attempting to explain the underlying technologies employed in this open-source project. 
 
 ## Background 
 
@@ -38,9 +38,10 @@ The repository offers detailed installation instructions and supports multiple e
 
 ### Dataset 
 
-From the author's experiment, it was concluded that a set of short recordings provides the best result rather than long recordings. Roughly 10 minutes of high-quality, clearly spoken speech with minimum background noise is sufficient to generate coherent speech of a speaker. There following web interface was developed using the Azure App service to collect these samples. 
+From the author's experiment, it was concluded that a set of short recordings provides the best result rather than long recordings. Roughly 10 minutes of high-quality, clearly spoken speech with minimum background noise is sufficient to generate coherent speech of a speaker. The following web interface was developed using the Azure App Service to collect these samples. 
 
-![fig1](images/Pasted image 20240531221202.png)
+![Pasted image 20240531221202](https://github.com/Ann-yang00/voice-data-frontend/assets/92725512/1a83246c-229a-4215-9a2b-36d05f604632)
+
 *Figure 1. Dataset collection interface [link](https://voice-training.azurewebsites.net/en).*
 
 ## Training 
@@ -49,7 +50,7 @@ Training instructions and advice on navigating the officially provided interface
 - [Open-source documentation ](https://www.yuque.com/baicaigongchang1145haoyuangong/ib3g1e)
 - [Internal documentation](https://docs.google.com/document/d/1exlcbFV-ttJqEfOFYksWqy5gRPDrzoclgPqB_ajt7Bs/edit?usp=sharing)
 
-Generally, the training interface has been designed to run on Windows and Mac machines. However, the aforementioned internal documentation and the following section includes the corresponding commands to run on Linux. This can be highly beneficial for automation. 
+Generally, the training interface has been designed to run on Windows and Mac machines. However, the aforementioned internal documentation and the following section include the corresponding commands to run on Linux. This can be highly beneficial for automation. 
 
 ### Instructions for Linux
 
@@ -152,7 +153,8 @@ The following content attempts to explain the technical principles of GPT-SoVITS
 [Reference GitHub repository](https://github.com/svc-develop-team/so-vits-svc)
 SoVITS is a voice conversion system that combines two primary components: SoftVC as the speech encoder to extract speech features from the source audio and VITS, the synthesizer. This system aims to produce high-quality, natural-sounding speech through advanced neural network architectures.
 
-![fig2](images/Pasted image 20240531170347.png)
+![Pasted image 20240531170347](https://github.com/Ann-yang00/voice-data-frontend/assets/92725512/72afd988-b945-444c-bb55-2a6c6189095f)
+
 *Figure 2. SoVITS Architecture ([video](https://www.bilibili.com/video/BV12g4y1m7Uw/))*
 
  **[SoftVC (Speech Encoder):](https://arxiv.org/abs/2111.02392)**
@@ -183,12 +185,13 @@ SoVITS is a voice conversion system that combines two primary components: SoftVC
 [Reference: Soundstorm AR](https://github.com/yangdongchao/SoundStorm/tree/master/soundstorm/s1/AR)
 [Reference: Autoregressive MQTTS](https://github.com/innnky/ar-vits/tree/mqvits)
 
-- **Function:** This plays a crucial role by utilising autoregressive (AR) techniques, which is responsible for predicting and generating audio tokens sequentially, where each token generation is conditioned on the previously generated tokens.
+- **Function:** This plays a crucial role by utilising autoregressive (AR) techniques, which are responsible for predicting and generating audio tokens sequentially, where each token generation is conditioned on the previously generated tokens.
 - **Use case**: The GPT model in this context is responsible for integrating the 'semantic information' and 'tonal conditioning' into a coherent sequence. This ensures that the final output not only conveys the correct content but also retains the desired tonal characteristics. 
 
 ### GPT-SoVITS Architecture 
 
-![fig3](images/Pasted image 20240531192217.png)
+![Pasted image 20240531192217](https://github.com/Ann-yang00/voice-data-frontend/assets/92725512/35e47159-eb5a-49b4-b159-16ebe6174ed9)
+
 *Figure 3. GPT-SoVITS Architecture ([video](https://www.bilibili.com/video/BV12g4y1m7Uw/))*
 
 **Target Speaker**:
@@ -206,8 +209,10 @@ SoVITS is a voice conversion system that combines two primary components: SoftVC
 - **Function**: The VITS decoder translates the combined tokens back into audio, producing high-quality speech that retains the desired characteristics of the target speaker while conveying the content from the source speaker.
 
 **Text-to-speech (TTS)**
-In text-to-speech applications, the source speaker block can simply be replace with the text to be generated.
-![fig4](images/Pasted image 20240531224442.png)
+In text-to-speech applications, the source speaker block can simply be replaced with the text to be generated.
+
+![Pasted image 20240531224442](https://github.com/Ann-yang00/voice-data-frontend/assets/92725512/e6b42ab9-d96f-41da-85f5-2b76242923e8)
+
 *Figure 4. GPT-SoVITS Architecture for TTS ([video](https://www.bilibili.com/video/BV12g4y1m7Uw/))*
 
 ---
