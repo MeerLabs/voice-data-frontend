@@ -40,7 +40,7 @@ The repository offers detailed installation instructions and supports multiple e
 
 From the author's experiment, it was concluded that a set of short recordings provides the best result rather than long recordings. Roughly 10 minutes of high-quality, clearly spoken speech with minimum background noise is sufficient to generate coherent speech of a speaker. There following web interface was developed using the Azure App service to collect these samples. 
 
-![[images/Pasted image 20240531221202.png]]
+![fig1](images/Pasted image 20240531221202.png)
 *Figure 1. Dataset collection interface [link](https://voice-training.azurewebsites.net/en).*
 
 ## Training 
@@ -152,7 +152,7 @@ The following content attempts to explain the technical principles of GPT-SoVITS
 [Reference GitHub repository](https://github.com/svc-develop-team/so-vits-svc)
 SoVITS is a voice conversion system that combines two primary components: SoftVC as the speech encoder to extract speech features from the source audio and VITS, the synthesizer. This system aims to produce high-quality, natural-sounding speech through advanced neural network architectures.
 
-![[images/Pasted image 20240531170347.png]]
+![fig2](images/Pasted image 20240531170347.png)
 *Figure 2. SoVITS Architecture ([video](https://www.bilibili.com/video/BV12g4y1m7Uw/))*
 
  **[SoftVC (Speech Encoder):](https://arxiv.org/abs/2111.02392)**
@@ -188,7 +188,7 @@ SoVITS is a voice conversion system that combines two primary components: SoftVC
 
 ### GPT-SoVITS Architecture 
 
-![[images/Pasted image 20240531192217.png]]
+![fig3](images/Pasted image 20240531192217.png)
 *Figure 3. GPT-SoVITS Architecture ([video](https://www.bilibili.com/video/BV12g4y1m7Uw/))*
 
 **Target Speaker**:
@@ -207,7 +207,7 @@ SoVITS is a voice conversion system that combines two primary components: SoftVC
 
 **Text-to-speech (TTS)**
 In text-to-speech applications, the source speaker block can simply be replace with the text to be generated.
-![[images/Pasted image 20240531224442.png]]
+![fig4](images/Pasted image 20240531224442.png)
 *Figure 4. GPT-SoVITS Architecture for TTS ([video](https://www.bilibili.com/video/BV12g4y1m7Uw/))*
 
 ---
