@@ -215,6 +215,10 @@ In text-to-speech applications, the source speaker block can simply be replaced 
 
 *Figure 4. GPT-SoVITS Architecture for TTS ([video](https://www.bilibili.com/video/BV12g4y1m7Uw/))*
 
+**Resources**
+Inference with GUI (https://didyouknowbg8.wordpress.com/2024/02/18/gpt-sovits-a-text-to-speech-and-voice-cloning-model/)
+
 ---
 Author: Zih-Syuan Yang 
+
 31 May 2024
